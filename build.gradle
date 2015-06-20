@@ -1,5 +1,6 @@
 apply plugin: "java"
 apply plugin: "maven"
+apply plugin: "eclipse"
 
 group = "myorg"
 version = 1.0
@@ -9,8 +10,13 @@ repositories {
 }
 
 dependencies {
-     compile ('org.jsoup:jsoup:1.7.2')
-     compile('org.apache.commons:commons-lang3:3.0')
+    compile('org.jsoup:jsoup:1.7.2')
+    compile('org.apache.commons:commons-lang3:3.0')
+    compile('org.springframework:spring-orm:4.1.6.RELEASE')
+	compile('org.hibernate:hibernate-core:4.3.10.Final')
+	compile('org.springframework:spring-aspects:4.1.6.RELEASE')
+	compile('commons-dbcp:commons-dbcp:1.4')
+	compile('mysql:mysql-connector-java:5.1.16')
     
 }
 

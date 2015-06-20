@@ -48,7 +48,7 @@ public class MapParserService implements IMapParserService {
 			Element node = it.next();
 			List<String> coordinates = parseValueForCoordinates(
 					node.attr("value"), SPLIT_SEPARATOR);
-			Location loc = new Location(convertName(node.childNode(0).attr("text")),
+			Location loc = new Location(node.childNode(0).attr("text"),
 					coordinates.get(0), coordinates.get(1));
 			result.add(loc);
 		}
