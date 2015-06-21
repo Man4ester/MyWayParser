@@ -18,11 +18,13 @@ import org.hibernate.criterion.DetachedCriteria;
 public class DestinationService implements IDestinationService {
 
 	private SessionFactory sessionFactory = HibernateUtils.getSessionfactory();
-	
-	private static final Logger logger = LogManager.getLogger(DestinationService.class);
+
+	private static final Logger logger = LogManager
+			.getLogger(DestinationService.class);
 
 	@Override
-	public Destination saveUpdate(Destination model) throws IllegalArgumentException{
+	public Destination saveUpdate(Destination model)
+			throws IllegalArgumentException {
 		logger.info("saveUpdate");
 		if (model == null) {
 			throw new IllegalArgumentException(
@@ -44,8 +46,8 @@ public class DestinationService implements IDestinationService {
 	}
 
 	@Override
-	public Destination findById(int id) throws IllegalArgumentException {
-		logger.info("findById: "+id);
+	public Destination findById(long id) throws IllegalArgumentException {
+		logger.info("findById: " + id);
 		if (id == 0) {
 			throw new IllegalArgumentException("id can't 0");
 		}
@@ -72,7 +74,7 @@ public class DestinationService implements IDestinationService {
 	@Override
 	public List<Destination> finaByCriteria(DetachedCriteria cr, int from,
 			int size) throws IllegalArgumentException {
-		logger.info("finaByCriteria: From:"+from+ " Size: "+size);
+		logger.info("finaByCriteria: From:" + from + " Size: " + size);
 		try {
 			getSession().beginTransaction();
 			if (cr == null) {
@@ -95,15 +97,17 @@ public class DestinationService implements IDestinationService {
 	}
 
 	@Override
-	public void delete(int id) throws IllegalArgumentException, NullPointerException{
-		logger.info("Delete by Id: "+id);
+	public void delete(long id) throws IllegalArgumentException,
+			NullPointerException {
+		logger.info("Delete by Id: " + id);
 		if (id == 0) {
 			throw new IllegalArgumentException("id can't be 0");
 		}
 		try {
 			Destination dest = findById(id);
-			if(dest ==null){
-				throw new NullPointerException("Not exist Destination with id " + id);
+			if (dest == null) {
+				throw new NullPointerException("Not exist Destination with id "
+						+ id);
 			}
 			getSession().beginTransaction();
 			getSession().delete(dest);
@@ -116,6 +120,19 @@ public class DestinationService implements IDestinationService {
 
 	private Session getSession() {
 		return sessionFactory.getCurrentSession();
+	}
+
+	@Override
+	public void truncate() {
+		logger.info("TRUNCATE");
+		getSession().beginTransaction();
+		try {
+			String sql = "TRUNCATE DESTINATION";
+			getSession().createSQLQuery(sql).executeUpdate();
+			getSession().getTransaction().commit();
+		} finally {
+
+		}
 	}
 
 }
