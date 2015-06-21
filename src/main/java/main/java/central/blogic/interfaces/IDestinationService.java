@@ -8,14 +8,14 @@ import main.java.central.model.Destination;
 
 public interface IDestinationService {
 	
-	public Destination saveUpdate(Destination model);
+	public Destination saveUpdate(Destination model) throws IllegalArgumentException;
 	
-	public Destination findById(int id);
+	public Destination findById(int id) throws IllegalArgumentException;
 	
 	public List<Destination> finaAll();
 	
-	public List<Destination> finaByCriteria(DetachedCriteria cr, int from, int size);
+	public List<Destination> finaByCriteria(DetachedCriteria cr, int from, int size) throws IllegalArgumentException;
 	
-	public void delete(int id);
+	public void delete(int id) throws IllegalArgumentException, NullPointerException;
 
 }

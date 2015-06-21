@@ -19,10 +19,21 @@ public class Main {
 
 	public static void main(String[] args) {
 		destServcie = new DestinationService();
+		showAllLocation();
+		if(1>0){
+			return;
+		}
 		startAnalyze(
 				"http://maps.turystam.in.ua/index.php/component/phocamaps/map/10-zahalna-karta?tmpl=component",
 				"#toPMAddress option");
 
+	}
+	
+	private static void showAllLocation(){
+		List<Destination> lst = destServcie.finaAll();
+		for (Destination destination : lst) {
+			System.out.println(destination.getLabel());
+		}
 	}
 
 	private static void startAnalyze(String url, String selector) {

@@ -18,7 +18,7 @@ public class DestinationService implements IDestinationService {
 	private SessionFactory sessionFactory = HibernateUtils.getSessionfactory();
 
 	@Override
-	public Destination saveUpdate(Destination model) {
+	public Destination saveUpdate(Destination model) throws IllegalArgumentException{
 		if (model == null) {
 			throw new IllegalArgumentException(
 					"Destination can't be NULL for saving");
@@ -39,7 +39,7 @@ public class DestinationService implements IDestinationService {
 	}
 
 	@Override
-	public Destination findById(int id) {
+	public Destination findById(int id) throws IllegalArgumentException {
 		if (id == 0) {
 			throw new IllegalArgumentException("id can't 0");
 		}
@@ -64,7 +64,7 @@ public class DestinationService implements IDestinationService {
 
 	@Override
 	public List<Destination> finaByCriteria(DetachedCriteria cr, int from,
-			int size) {
+			int size) throws IllegalArgumentException {
 		try {
 			getSession().beginTransaction();
 			if (cr == null) {
@@ -87,12 +87,15 @@ public class DestinationService implements IDestinationService {
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(int id) throws IllegalArgumentException, NullPointerException{
 		if (id == 0) {
 			throw new IllegalArgumentException("id can't be 0");
 		}
 		try {
 			Destination dest = findById(id);
+			if(dest ==null){
+				throw new NullPointerException("Not exist Destination with id " + id);
+			}
 			getSession().beginTransaction();
 			getSession().delete(dest);
 			getSession().getTransaction().commit();
