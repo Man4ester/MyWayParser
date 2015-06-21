@@ -1,6 +1,7 @@
 package main.java.central.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +20,8 @@ public class Destination implements Serializable {
 		this.label = location.getName();
 		this.locationX=location.getCoordinateX();
 		this.locationY=location.getCoordinateY();
+		this.coordinateX = new  BigDecimal(this.locationX);
+		this.coordinateY = new  BigDecimal(this.locationY);
 	}
 	public Destination(){
 		
@@ -38,6 +41,12 @@ public class Destination implements Serializable {
 	private String locationX;
 
 	private String locationY;
+	
+	@Column(name="coordinateX", precision=15, scale=15)
+	private BigDecimal coordinateX;
+	
+	@Column(name="coordinateY", precision=15, scale=15)
+	private BigDecimal coordinateY;
 
 	public Long getId() {
 		return id;
@@ -85,6 +94,18 @@ public class Destination implements Serializable {
 
 	public void setLocationY(String locationY) {
 		this.locationY = locationY;
+	}
+	public BigDecimal getCoordinateX() {
+		return coordinateX;
+	}
+	public void setCoordinateX(BigDecimal coordinateX) {
+		this.coordinateX = coordinateX;
+	}
+	public BigDecimal getCoordinateY() {
+		return coordinateY;
+	}
+	public void setCoordinateY(BigDecimal coordinateY) {
+		this.coordinateY = coordinateY;
 	}
 
 }
