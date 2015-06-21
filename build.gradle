@@ -17,6 +17,9 @@ dependencies {
 	compile('org.springframework:spring-aspects:4.1.6.RELEASE')
 	compile('commons-dbcp:commons-dbcp:1.4')
 	compile('mysql:mysql-connector-java:5.1.16')
+	
+	compile('org.apache.logging.log4j:log4j-api:2.3')
+	compile('org.apache.logging.log4j:log4j-core:2.3')
     
 }
 

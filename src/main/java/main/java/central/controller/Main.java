@@ -10,14 +10,21 @@ import main.java.central.blogic.services.MapParserService;
 import main.java.central.model.Destination;
 import main.java.central.model.Location;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jsoup.select.Elements;
 
 
 public class Main {
 	
+	private static final Logger logger = LogManager.getLogger(Main.class);
+	
 	static IDestinationService destServcie;
+	
+	
 
 	public static void main(String[] args) {
+		logger.info("Start work");
 		destServcie = new DestinationService();
 		showAllLocation();
 		if(1>0){
