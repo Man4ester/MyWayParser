@@ -10,6 +10,10 @@
 			additivity="false">
 			<AppenderRef ref="Console" />
 		</Logger>
+		<Logger name="main.java.fullparser.controllers.FullParse" level="INFO"
+			additivity="false">
+			<AppenderRef ref="Console" />
+		</Logger>
 		<Logger name="main.java.central.blogic.services.DestinationService" level="INFO"
 			additivity="false">
 			<AppenderRef ref="Console" />
