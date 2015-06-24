@@ -2,9 +2,9 @@ package main.java.fullparser.controllers;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -36,14 +36,17 @@ public class FullParse {
 
 	private static final List<String> itemsForParse = new ArrayList<String>();
 	static {
-		itemsForParse.add("ВОДНИЙ БАСЕЙН");
+		//temsForParse.add("ВОДНИЙ БАСЕЙН"); 80
 		// itemsForParse.add("СЕЛА ТА СМТ");
 		// itemsForParse.add("ПЕЧЕРИ УКРАЇНИ");
+		 itemsForParse.add("МІСТА");
+		
 	}
 
 	private static IFullLocationModelService service;
 
 	public static void main(String[] args) {
+		logger.info("Satrt: "+(new Date()));
 		service = new FullLocationModelService();
 		String url = "http://turystam.in.ua/index.php";
 		String selector = ".menu-nav li";
@@ -116,17 +119,17 @@ public class FullParse {
 				File outputfile = null;
 				File folder = null;
 				if (!options.isEmpty()) {
-					URL url_net = new URL(IMG + options.get(0).attr("src"));
-					BufferedImage img = ImageIO.read(url_net);
-
 					try {
+						URL url_net = new URL(IMG + options.get(0).attr("src"));
+						BufferedImage img = ImageIO.read(url_net);
 						folder = new File(FOLDER + menuModel.getCategory());
 						folder.mkdirs();
 						String[] arg = options.get(0).attr("src").split("/");
 						outputfile = new File(folder.getPath() + File.separator
 								+ arg[arg.length - 1]);
 						ImageIO.write(img, JPG, outputfile);
-					} catch (IOException e) {
+					} catch (Exception e) {
+						logger.error(menuModel.getUrl());
 						logger.error(e.getMessage(), e);
 					}
 				}
@@ -142,8 +145,8 @@ public class FullParse {
 				service.saveUpdate(model);
 
 			}
-			logger.info("Done");
-		} catch (IOException e) {
+			logger.info("Done: "+(new Date()));
+		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
 	}
