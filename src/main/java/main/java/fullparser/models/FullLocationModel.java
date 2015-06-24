@@ -22,7 +22,7 @@ public class FullLocationModel implements Serializable{
 	
 	private String name;
 	
-	@Column(name="description", length=9000)
+	@Column(name="description", length=1000000)
 	private String description;
 	
 	private String url;

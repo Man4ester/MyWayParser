@@ -36,10 +36,15 @@ public class FullParse {
 
 	private static final List<String> itemsForParse = new ArrayList<String>();
 	static {
-		//temsForParse.add("ВОДНИЙ БАСЕЙН"); 80
-		// itemsForParse.add("СЕЛА ТА СМТ");
+//		itemsForParse.add("ВОДНИЙ БАСЕЙН"); 
+		//itemsForParse.add("СЕЛА ТА СМТ");
 		// itemsForParse.add("ПЕЧЕРИ УКРАЇНИ");
-		 itemsForParse.add("МІСТА");
+		 //itemsForParse.add("МІСТА");
+		//itemsForParse.add("ПАРКИ");
+		itemsForParse.add("ЗАМКИ");
+		//itemsForParse.add("МУЗЕЇ");
+		//itemsForParse.add("ЦЕРКВИ");
+		
 		
 	}
 
@@ -50,12 +55,24 @@ public class FullParse {
 		service = new FullLocationModelService();
 		String url = "http://turystam.in.ua/index.php";
 		String selector = ".menu-nav li";
+		String selector_main_menu = ".megamenu li";
 		List<MenuModel> menu = new ArrayList<MenuModel>();
 		try {
 			Document doc;
 			doc = Jsoup.connect(url).timeout(0).get();
 			Elements options = doc.select(selector);
 			Iterator<Element> it = options.iterator();
+			while (it.hasNext()) {
+				Element node = it.next();
+				Elements el = node.getElementsByAttribute("href");
+				Element elementLink = el.get(0);
+				MenuModel mod = new MenuModel(INDEX, elementLink.attr("href"),
+						elementLink.text(), null);
+				menu.add(mod);
+			}
+			
+			options = doc.select(selector_main_menu);
+			it = options.iterator();
 			while (it.hasNext()) {
 				Element node = it.next();
 				Elements el = node.getElementsByAttribute("href");
@@ -141,8 +158,12 @@ public class FullParse {
 				}
 				model.setName(menuModel.getName());
 				model.setUrl(menuModel.getUrl());
-
-				service.saveUpdate(model);
+				try{
+					service.saveUpdate(model);
+				}catch(Exception e){
+					logger.error(menuModel.getUrl(),e);
+				}
+				
 
 			}
 			logger.info("Done: "+(new Date()));
