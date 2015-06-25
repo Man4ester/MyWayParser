@@ -41,9 +41,9 @@ public class FullParse {
 		// itemsForParse.add("ПЕЧЕРИ УКРАЇНИ");
 		 //itemsForParse.add("МІСТА");
 		//itemsForParse.add("ПАРКИ");
-		itemsForParse.add("ЗАМКИ");
+		//itemsForParse.add("ЗАМКИ");
 		//itemsForParse.add("МУЗЕЇ");
-		//itemsForParse.add("ЦЕРКВИ");
+		itemsForParse.add("ЦЕРКВИ");
 		
 		
 	}
@@ -53,7 +53,7 @@ public class FullParse {
 	public static void main(String[] args) {
 		logger.info("Satrt: "+(new Date()));
 		service = new FullLocationModelService();
-		String url = "http://turystam.in.ua/index.php";
+		String url = "http://turystam.in.ua/";
 		String selector = ".menu-nav li";
 		String selector_main_menu = ".megamenu li";
 		List<MenuModel> menu = new ArrayList<MenuModel>();
