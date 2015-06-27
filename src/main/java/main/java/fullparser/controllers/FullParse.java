@@ -54,6 +54,8 @@ public class FullParse {
 	
 	private static final String SUB_CATEGORY_2= ".categories-list";
 	
+	private static final String SUB_CATEGORY_CITY_DAY=".jcat-children li";
+	
 	private static final String LIMIT_HUC="?limit=100";
 
 	private static IFullLocationModelService service;
@@ -68,12 +70,15 @@ public class FullParse {
 		// itemsForParse.add("ЗАМКИ");
 		// itemsForParse.add("МУЗЕЇ");
 		//itemsForParse.add("ЦЕРКВИ");
-		itemsForParse.add("ПАЛАЦИ");
+		//itemsForParse.add("ПАЛАЦИ");
+		itemsForParse.add("ДЕНЬ МІСТА");
+		
 	}
 	
 	private static final List<String> specialItemsForParse = new ArrayList<String>();
 	static{
 		specialItemsForParse.add("ПАЛАЦИ");
+		specialItemsForParse.add("ДЕНЬ МІСТА");
 	}
 
 	public static void main(String[] args) {
@@ -147,12 +152,15 @@ public class FullParse {
 						if(options.isEmpty()){
 							options=doc.select(SUB_CATEGORY_2);
 						}
+						if(options.isEmpty()){
+							options=doc.select(SUB_CATEGORY_CITY_DAY);
+						}
 						it = options.iterator();
 						while (it.hasNext()) {
 							Element node = it.next();
 							Elements el_2 = node.getElementsByTag(A);
 							if(el_2.size()==1){
-								lstItems.add(new MenuModel(url_2, url + el_2.attr(HREF), el_2.text(), null));
+								lstItems.add(new MenuModel(url_2, url + el_2.attr(HREF), el_2.text(), item));
 							}else{
 								for (Element element : el_2) {
 									lstItems.add(new MenuModel(url_2, url + element.attr(HREF), element.text(), item));
